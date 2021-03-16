@@ -43,7 +43,7 @@ networks(Args) ->
 
 % @doc Identical to the docker network inspect command, but can only be used with a network ID.
 network(CID) ->
-    ?PROPLISTS(erldocker_api:get([networks, CID])).
+    ?PROPLIST(erldocker_api:get([networks, CID])).
 
 % @doc Creates a container that can then be started.
 % http://docs.docker.io/en/latest/api/docker_remote_api_v1.4/#create-a-container
