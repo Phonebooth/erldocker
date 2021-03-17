@@ -2,6 +2,7 @@
 -export([get/1, get/2, post/1, post/2, post/3, delete/1, delete/2]).
 -export([get_stream/1, get_stream/2, post_stream/1, post_stream/2]).
 -export([proplist_from_json/1, proplists_from_json/1]).
+-compile([{parse_transform, lager_transform}]).
 
 -define(ADDR, application:get_env(erldocker, docker_http, <<"http://localhost:4243">>)).
 -define(OPTIONS, [{pool, erldocker_pool}]).
@@ -19,8 +20,7 @@ post_stream(URL)       -> call({post, stream}, <<>>, URL, []).
 post_stream(URL, Args) -> call({post, stream}, <<>>, URL, Args).
 
 call({Method, stream}, Body, URL) when is_binary(URL) andalso is_binary(Body) ->
-    lager:log(info,"api call: ~p ~s", [{Method, stream}, binary_to_list(URL)]),
-    %error_logger:info_msg("api call: ~p ~s", [{Method, stream}, binary_to_list(URL)]),
+    lager:info("api call: ~p ~s", [{Method, stream}, binary_to_list(URL)]),
     case hackney:request(Method, URL, [], Body, ?OPTIONS) of
         {ok, StatusCode, _RespHeaders, Client} ->
             case StatusCode of
@@ -36,8 +36,7 @@ call({Method, stream}, Body, URL) when is_binary(URL) andalso is_binary(Body) ->
     end;
 
 call(Method, Body, URL) when is_binary(URL) andalso is_binary(Body) ->
-    %error_logger:info_msg("api call: ~p ~s", [Method, binary_to_list(URL)]),
-    lager:log(info,"api call: ~p ~s", [{Method, stream}, binary_to_list(URL)]),
+    lager:info("api call: ~p ~s", [{Method, stream}, binary_to_list(URL)]),
     ReqHeaders = [{<<"Content-Type">>, <<"application/json">>}],
     case hackney:request(Method, URL, ReqHeaders, Body, ?OPTIONS) of
         {ok, StatusCode, RespHeaders, Client} ->
