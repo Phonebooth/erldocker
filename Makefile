@@ -1,4 +1,4 @@
-APPS := lager
+APPS := 
 ACTIVE_APPS := sasl,gproc,erlfsmon,compiler,crypto,syntax_tools,tools,rebar,active
 ERLDOCKER_APPS := asn1,crypto,public_key,ssl,mimetypes,hackney,jsx,erldocker
 
