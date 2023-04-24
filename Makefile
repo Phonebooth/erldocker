@@ -1,5 +1,5 @@
 APPS := 
-ACTIVE_APPS := sasl,gproc,erlfsmon,compiler,crypto,syntax_tools,tools,rebar,active
+ACTIVE_APPS := sasl,gproc,erlfsmon,compiler,crypto,syntax_tools,tools,rebar
 ERLDOCKER_APPS := asn1,crypto,public_key,ssl,mimetypes,hackney,jsx,erldocker
 
 ERL_FLAGS= +sbwt none +swct lazy +swt high +K true
