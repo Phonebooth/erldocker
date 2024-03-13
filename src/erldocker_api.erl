@@ -20,7 +20,6 @@ post_stream(URL)       -> call({post, stream}, <<>>, URL, []).
 post_stream(URL, Args) -> call({post, stream}, <<>>, URL, Args).
 
 call({Method, stream}, Body, URL) when is_binary(URL) andalso is_binary(Body) ->
-    logger:info("api call: ~p ~s", [{Method, stream}, binary_to_list(URL)]),
     case hackney:request(Method, URL, [], Body, ?OPTIONS) of
         {ok, StatusCode, _RespHeaders, Client} ->
             case StatusCode of
@@ -36,7 +35,6 @@ call({Method, stream}, Body, URL) when is_binary(URL) andalso is_binary(Body) ->
     end;
 
 call(Method, Body, URL) when is_binary(URL) andalso is_binary(Body) ->
-    logger:info("api call: ~p ~s", [{Method, stream}, binary_to_list(URL)]),
     ReqHeaders = [{<<"Content-Type">>, <<"application/json">>}],
     case hackney:request(Method, URL, ReqHeaders, Body, ?OPTIONS) of
         {ok, StatusCode, RespHeaders, Client} ->
